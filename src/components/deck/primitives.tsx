@@ -233,6 +233,48 @@ export function Alert({ tone, title, body }: { tone: Tone; title: string; body: 
   );
 }
 
+/**
+ * Fixed categorical order for charts — validated for CVD-safe adjacency
+ * (amber ↔ teal ↔ coral; amber and coral never sit next to each other).
+ * Run `validate_palette.js` again before adding a 4th slot.
+ */
+const CHART_COLORS = ["var(--color-amber)", "var(--color-vital-bright)", "var(--color-pulse)"];
+
+export function BarChart({ data }: { data: { label: string; value: number }[] }) {
+  const max = Math.max(...data.map((d) => d.value));
+  return (
+    <div>
+      <div className="flex items-end gap-7" style={{ height: 130 }}>
+        {data.map((d, i) => (
+          <div key={d.label} className="flex h-full flex-1 flex-col items-center justify-end">
+            <div
+              className="font-utility mb-1.5 text-[13px] tabular-nums text-ink-soft"
+              dir="ltr"
+            >
+              {d.value}
+            </div>
+            <div
+              className="w-full rounded-t-[4px]"
+              style={{
+                height: `${Math.max((d.value / max) * 100, 4)}%`,
+                background: CHART_COLORS[i % CHART_COLORS.length],
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 h-px w-full" style={{ background: "var(--color-mist)" }} />
+      <div className="mt-2.5 flex gap-7">
+        {data.map((d) => (
+          <div key={d.label} className="font-utility flex-1 text-center text-[12px] text-ink-soft">
+            {d.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Card({ children }: { children: ReactNode }) {
   return (
     <div className="rounded-sm border p-4" style={{ borderColor: "var(--color-mist)" }}>

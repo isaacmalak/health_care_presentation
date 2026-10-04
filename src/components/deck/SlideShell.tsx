@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { VitalRail } from "./VitalRail";
 
-const TOTAL_SLIDES = 5;
+const TOTAL_SLIDES = 6;
 
 export function SlideShell({
   index,

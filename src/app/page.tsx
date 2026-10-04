@@ -4,6 +4,7 @@ import { ColorSlide } from "@/slides/ColorSlide";
 import { TypeSlide } from "@/slides/TypeSlide";
 import { ComponentsActionsSlide } from "@/slides/ComponentsActionsSlide";
 import { ComponentsDisplaySlide } from "@/slides/ComponentsDisplaySlide";
+import { ChartsDiagramsSlide } from "@/slides/ChartsDiagramsSlide";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <TypeSlide />
       <ComponentsActionsSlide />
       <ComponentsDisplaySlide />
+      <ChartsDiagramsSlide />
     </RevealDeck>
   );
 }
