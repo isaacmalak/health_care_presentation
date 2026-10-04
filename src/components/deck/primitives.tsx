@@ -1,5 +1,14 @@
 import type { ReactNode } from "react";
 
+type Tone = "neutral" | "vital" | "amber" | "pulse";
+
+const TONE_COLOR: Record<Tone, string> = {
+  neutral: "var(--color-ink-soft)",
+  vital: "var(--color-vital)",
+  amber: "var(--color-amber)",
+  pulse: "var(--color-pulse)",
+};
+
 export function Divider({ dark = false }: { dark?: boolean }) {
   return (
     <hr
@@ -16,28 +25,33 @@ export function Stat({
 }: {
   value: string;
   label: string;
-  tone?: "vital" | "pulse" | "amber" | "ink";
+  tone?: Tone;
 }) {
-  const colorVar =
-    tone === "vital"
-      ? "var(--color-vital)"
-      : tone === "pulse"
-        ? "var(--color-pulse)"
-        : tone === "amber"
-          ? "var(--color-amber)"
-          : "var(--color-ink)";
   return (
     <div>
       <div
-        className="font-display text-[56px] leading-none font-medium tabular-nums"
-        style={{ color: colorVar }}
+        className="font-display text-[44px] leading-none font-medium tabular-nums"
+        style={{ color: TONE_COLOR[tone] }}
       >
         {value}
       </div>
-      <div className="font-utility mt-3 text-[12px] uppercase tracking-[0.12em] text-ink-soft">
+      <div className="font-utility mt-2 text-[11px] uppercase tracking-[0.12em] text-ink-soft">
         {label}
       </div>
     </div>
+  );
+}
+
+export function Badge({ tone = "neutral", children }: { tone?: Tone; children: ReactNode }) {
+  const bg =
+    tone === "neutral" ? "var(--color-mist-soft)" : `color-mix(in srgb, ${TONE_COLOR[tone]} 14%, white)`;
+  return (
+    <span
+      className="font-utility inline-flex items-center rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.1em]"
+      style={{ background: bg, color: tone === "neutral" ? "var(--color-ink-soft)" : TONE_COLOR[tone] }}
+    >
+      {children}
+    </span>
   );
 }
 
@@ -57,8 +71,18 @@ export function Button({
   variant = "primary",
 }: {
   children: ReactNode;
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "ghost" | "disabled";
 }) {
+  if (variant === "disabled") {
+    return (
+      <span
+        className="font-utility inline-flex items-center gap-2 rounded-sm px-4 py-2 text-[13px] tracking-[0.04em]"
+        style={{ background: "var(--color-mist)", color: "var(--color-ink-soft)" }}
+      >
+        {children}
+      </span>
+    );
+  }
   if (variant === "ghost") {
     return (
       <span
@@ -76,5 +100,148 @@ export function Button({
     >
       {children}
     </span>
+  );
+}
+
+export function TextField({
+  label,
+  value,
+  placeholder,
+  state = "default",
+  helper,
+}: {
+  label: string;
+  value?: string;
+  placeholder?: string;
+  state?: "default" | "focus" | "error";
+  helper?: string;
+}) {
+  const borderColor =
+    state === "error" ? "var(--color-pulse)" : state === "focus" ? "var(--color-vital)" : "var(--color-mist)";
+  return (
+    <div>
+      <label className="font-utility block text-[11px] uppercase tracking-[0.1em] text-ink-soft">
+        {label}
+      </label>
+      <div
+        className="mt-1.5 rounded-sm border px-3 py-2 text-[14px]"
+        style={{
+          borderColor,
+          borderWidth: state === "focus" ? 2 : 1,
+          boxShadow: state === "focus" ? "0 0 0 3px var(--color-vital-dim)" : "none",
+          color: value ? "var(--color-ink)" : "var(--color-ink-soft)",
+        }}
+      >
+        {value ?? placeholder}
+      </div>
+      {helper && (
+        <div
+          className="font-utility mt-1 text-[11px]"
+          style={{ color: state === "error" ? "var(--color-pulse)" : "var(--color-ink-soft)" }}
+        >
+          {helper}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Select({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <label className="font-utility block text-[11px] uppercase tracking-[0.1em] text-ink-soft">
+        {label}
+      </label>
+      <div
+        className="mt-1.5 flex items-center justify-between rounded-sm border px-3 py-2 text-[14px]"
+        style={{ borderColor: "var(--color-mist)" }}
+      >
+        <span>{value}</span>
+        <span className="text-ink-soft">⌄</span>
+      </div>
+    </div>
+  );
+}
+
+export function Checkbox({ label, checked = false }: { label: string; checked?: boolean }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <div
+        className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] border"
+        style={{
+          background: checked ? "var(--color-vital)" : "transparent",
+          borderColor: checked ? "var(--color-vital)" : "var(--color-mist)",
+          borderWidth: checked ? 0 : 1.5,
+        }}
+      >
+        {checked && (
+          <svg width="11" height="9" viewBox="0 0 11 9" fill="none">
+            <path d="M1 4.5L4 7.5L10 1" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
+      </div>
+      <span className="text-[14px]">{label}</span>
+    </div>
+  );
+}
+
+export function Toggle({ on = false }: { on?: boolean }) {
+  return (
+    <div
+      className="relative h-[22px] w-[38px] rounded-full"
+      style={{ background: on ? "var(--color-vital)" : "var(--color-mist)" }}
+    >
+      <div
+        className="absolute top-[3px] h-[16px] w-[16px] rounded-full bg-white shadow-sm"
+        style={{ left: on ? 19 : 3 }}
+      />
+    </div>
+  );
+}
+
+export function ProgressBar({ value, tone = "vital" }: { value: number; tone?: Tone }) {
+  return (
+    <div className="h-[6px] w-full rounded-full" style={{ background: "var(--color-mist)" }}>
+      <div
+        className="h-full rounded-full"
+        style={{ width: `${value}%`, background: TONE_COLOR[tone] }}
+      />
+    </div>
+  );
+}
+
+export function Avatar({ initials, tone = "vital" }: { initials: string; tone?: Tone }) {
+  return (
+    <div
+      className="font-utility flex h-9 w-9 items-center justify-center rounded-full text-[12px] font-medium text-white"
+      style={{ background: TONE_COLOR[tone] }}
+    >
+      {initials}
+    </div>
+  );
+}
+
+export function Alert({ tone, title, body }: { tone: Tone; title: string; body: string }) {
+  return (
+    <div
+      className="rounded-sm border-l-[3px] py-2.5 pl-4 pr-4"
+      style={{
+        borderColor: TONE_COLOR[tone],
+        background: `color-mix(in srgb, ${TONE_COLOR[tone]} 7%, var(--color-canvas))`,
+      }}
+    >
+      <div className="text-[13.5px] font-medium" style={{ color: "var(--color-ink)" }}>
+        {title}
+      </div>
+      <div className="mt-0.5 text-[12.5px] text-ink-soft">{body}</div>
+    </div>
+  );
+}
+
+export function Card({ children }: { children: ReactNode }) {
+  return (
+    <div className="rounded-sm border p-4" style={{ borderColor: "var(--color-mist)" }}>
+      {children}
+    </div>
   );
 }

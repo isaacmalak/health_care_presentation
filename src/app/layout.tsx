@@ -21,9 +21,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thread — A Design System Proposal for Harbor Health",
-  description:
-    "Thread: the design system proposal — foundations, components, motion, and governance, prepared for Harbor Health.",
+  title: "Thread — Design System",
+  description: "Thread: color, typography, and UI components.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

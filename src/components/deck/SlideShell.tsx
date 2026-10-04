@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { VitalRail } from "./VitalRail";
 
-const TOTAL_SLIDES = 12;
+const TOTAL_SLIDES = 5;
 
 export function SlideShell({
   index,
@@ -52,14 +52,14 @@ export function SlideShell({
             {eyebrow}
           </p>
         )}
-        {!bare && <div className="flex flex-1 flex-col justify-center">{children}</div>}
+        {!bare && <div className="flex flex-1 flex-col justify-start">{children}</div>}
         {bare && children}
         {!bare && (
           <footer
             className="font-utility flex items-baseline justify-between pt-8 text-[10px] uppercase tracking-[0.18em]"
             style={{ opacity: 0.55 }}
           >
-            <span>Thread — Prepared for Harbor Health</span>
+            <span>Thread</span>
             <span>
               {String(index).padStart(2, "0")} / {String(TOTAL_SLIDES).padStart(2, "0")}
             </span>
