@@ -46,28 +46,37 @@ const USAGE = [
 const ADOPTION = [12, 24, 31, 45, 63, 78];
 const MONTHS = ["ينا", "فبر", "مار", "أبر", "ماي", "يون"];
 
+const CHART_BOX = "flex items-center" as const;
+const CHART_HEIGHT = { height: 150 };
+
 export function ChartsDiagramsSlide() {
   return (
     <SlideShell index={6} eyebrow="المخططات والرسوم البيانية" transition="slide">
       <div className="grid grid-cols-2 gap-x-16 gap-y-9">
         <div className="fragment fade-up">
           <Label>رسم بياني شريطي — استخدام المكوّنات</Label>
-          <BarChart data={USAGE} />
+          <div className={CHART_BOX} style={CHART_HEIGHT}>
+            <BarChart data={USAGE} />
+          </div>
         </div>
 
         <div className="fragment fade-up">
           <Label>مؤشر دائري — تطابق الشاشات مع النظام</Label>
-          <ProgressRing value={64} label="من شاشات المنتج تستخدم مكوّنات نبض مباشرة" />
+          <div className={CHART_BOX} style={CHART_HEIGHT}>
+            <ProgressRing value={64} label="من شاشات المنتج تستخدم مكوّنات نبض مباشرة" />
+          </div>
         </div>
 
         <div className="fragment fade-up">
           <Label>رسم بياني خطي — تبنّي النظام عبر الأشهر</Label>
-          <LineChart points={ADOPTION} labels={MONTHS} unit="%" />
+          <div className={CHART_BOX} style={CHART_HEIGHT}>
+            <LineChart points={ADOPTION} labels={MONTHS} unit="%" />
+          </div>
         </div>
 
         <div className="fragment fade-up">
           <Label>مخطط تدفق — بنية النظام</Label>
-          <div className="flex items-center" style={{ height: 100 }}>
+          <div className={CHART_BOX} style={CHART_HEIGHT}>
             <FlowNode>الرموز</FlowNode>
             <FlowArrow />
             <FlowNode>المكوّنات</FlowNode>

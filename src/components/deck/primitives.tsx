@@ -244,7 +244,7 @@ export function BarChart({ data }: { data: { label: string; value: number }[] })
   const max = Math.max(...data.map((d) => d.value));
   return (
     <div>
-      <div className="flex items-end gap-7" style={{ height: 130 }}>
+      <div className="flex items-end gap-7" style={{ height: 112 }}>
         {data.map((d, i) => (
           <div key={d.label} className="flex h-full flex-1 flex-col items-center justify-end">
             <div
