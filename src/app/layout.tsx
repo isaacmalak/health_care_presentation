@@ -21,9 +21,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Harbor Health — Continuity of Care, FY26 Review",
+  title: "Thread — A Design System Proposal for Harbor Health",
   description:
-    "FY26 continuity-of-care review for Harbor Health: the model, the outcomes, and what's next.",
+    "Thread: the design system proposal — foundations, components, motion, and governance, prepared for Harbor Health.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

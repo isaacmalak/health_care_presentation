@@ -11,13 +11,13 @@ const COLORS = [
 
 export function DesignFoundationsSlide() {
   return (
-    <SlideShell index={12} eyebrow="Foundations">
-      <h2 className="font-display max-w-lg text-[30px] leading-tight">
+    <SlideShell index={4} eyebrow="Foundations" transition="slide" autoAnimate>
+      <h2 className="font-display max-w-lg text-[30px] leading-tight" data-id="thread-topic">
         Color and type, chosen on purpose.
       </h2>
       <div className="mt-8 grid grid-cols-6 gap-4">
         {COLORS.map(([name, hex]) => (
-          <div key={name}>
+          <div key={name} className="fragment fade-up">
             <div
               className="h-16 w-full rounded-sm border"
               style={{ background: hex, borderColor: "rgba(18,26,43,0.1)" }}
@@ -29,8 +29,8 @@ export function DesignFoundationsSlide() {
       </div>
       <p className="mt-6 max-w-2xl text-[13px] leading-snug text-ink-soft">
         Teal stands in for vitality instead of the expected clinical blue;
-        coral carries warmth and alerts; navy is the only near-black, reserved
-        for ink and the two divider slides.
+        coral carries warmth and alerts; navy is the only near-black,
+        reserved for ink and the open and close.
       </p>
 
       <div className="mt-10 grid grid-cols-3 gap-10 border-t pt-8" style={{ borderColor: "var(--color-mist)" }}>

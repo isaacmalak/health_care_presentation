@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { VitalRail } from "./VitalRail";
 
-const TOTAL_SLIDES = 15;
+const TOTAL_SLIDES = 12;
 
 export function SlideShell({
   index,
@@ -10,6 +10,8 @@ export function SlideShell({
   pulse = false,
   rail = true,
   bare = false,
+  transition,
+  autoAnimate = false,
   children,
 }: {
   index: number;
@@ -18,6 +20,10 @@ export function SlideShell({
   pulse?: boolean;
   rail?: boolean;
   bare?: boolean;
+  /** Per-slide reveal.js transition override (default comes from RevealDeck config). */
+  transition?: "none" | "fade" | "slide" | "convex" | "concave" | "zoom";
+  /** Opt this slide into reveal.js's auto-animate morph with its neighbor. */
+  autoAnimate?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -27,6 +33,8 @@ export function SlideShell({
         background: dark ? "var(--color-ink)" : "var(--color-canvas)",
         color: dark ? "var(--color-canvas)" : "var(--color-ink)",
       }}
+      {...(transition ? { "data-transition": transition } : {})}
+      {...(autoAnimate ? { "data-auto-animate": "" } : {})}
     >
       {rail && <VitalRail pulse={pulse} tone={dark ? "canvas" : "vital"} />}
       <div
@@ -51,7 +59,7 @@ export function SlideShell({
             className="font-utility flex items-baseline justify-between pt-8 text-[10px] uppercase tracking-[0.18em]"
             style={{ opacity: 0.55 }}
           >
-            <span>Harbor Health — FY26 Continuity Review</span>
+            <span>Thread — Prepared for Harbor Health</span>
             <span>
               {String(index).padStart(2, "0")} / {String(TOTAL_SLIDES).padStart(2, "0")}
             </span>

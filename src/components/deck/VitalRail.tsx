@@ -8,8 +8,9 @@ const TONE_VAR: Record<Tone, string> = {
 
 /**
  * The deck's through-line: a thin vertical rail that runs down every slide,
- * standing for continuous monitoring / continuity of care. On marked slides
- * it breaks into a single heartbeat trace instead of staying decorative.
+ * standing for continuity of care. On marked slides it breaks into a single
+ * heartbeat trace instead of staying decorative. Draws itself in and, on
+ * pulse slides, sweeps the trace once the slide becomes current.
  */
 export function VitalRail({
   pulse = false,
@@ -23,11 +24,14 @@ export function VitalRail({
     <div
       aria-hidden="true"
       className="pointer-events-none absolute top-16 bottom-16 left-16 w-px"
-      style={{ background: color, opacity: pulse ? 0.35 : 0.55 }}
     >
+      <div
+        className="vital-rail-line h-full w-full origin-top"
+        style={{ background: color, opacity: pulse ? 0.35 : 0.55 }}
+      />
       {pulse && (
         <svg
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible"
+          className="vital-rail-pulse absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible"
           width="132"
           height="56"
           viewBox="0 0 132 56"
@@ -39,6 +43,9 @@ export function VitalRail({
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            pathLength={1}
+            strokeDasharray={1}
+            strokeDashoffset={1}
           />
         </svg>
       )}

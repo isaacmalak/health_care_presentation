@@ -90,3 +90,52 @@ body {
   background: var(--color-vital);
   color: var(--color-canvas);
 }
+
+/* ---------------------------------------------------------------------- */
+/* Vital rail motion — draws in once a slide becomes current.             */
+/* ---------------------------------------------------------------------- */
+
+.vital-rail-line {
+  transform: scaleY(0);
+}
+
+.reveal .slides section.present .vital-rail-line {
+  animation: vital-rail-draw 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.vital-rail-pulse path {
+  animation: none;
+}
+
+.reveal .slides section.present .vital-rail-pulse path {
+  animation: vital-pulse-draw 650ms 550ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes vital-rail-draw {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes vital-pulse-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vital-rail-line {
+    animation: none !important;
+    transform: scaleY(1) !important;
+  }
+  .vital-rail-pulse path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

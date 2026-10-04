@@ -26,8 +26,12 @@ export function RevealDeck({ children }: { children: ReactNode }) {
         margin: 0,
         minScale: 0.2,
         maxScale: 1.4,
-        transition: "fade",
-        transitionSpeed: "fast",
+        transition: "slide",
+        transitionSpeed: "default",
+        autoAnimate: true,
+        autoAnimateDuration: 0.7,
+        autoAnimateEasing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        fragments: true,
         keyboard: true,
       });
       deck.initialize();

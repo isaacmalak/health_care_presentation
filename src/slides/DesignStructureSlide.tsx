@@ -4,9 +4,9 @@ const SCALE = [4, 8, 12, 16, 24, 32, 48, 64];
 
 export function DesignStructureSlide() {
   return (
-    <SlideShell index={13} eyebrow="Structure & signature">
+    <SlideShell index={5} eyebrow="Structure & signature" transition="slide">
       <h2 className="font-display max-w-lg text-[30px] leading-tight">
-        A fixed canvas, a spacing scale, and one running line.
+        A fixed canvas, a spacing scale, and the thread itself.
       </h2>
 
       <div className="mt-8 grid grid-cols-2 gap-14">
@@ -34,13 +34,12 @@ export function DesignStructureSlide() {
 
         <div>
           <div className="font-utility text-[11px] uppercase tracking-[0.15em] text-vital">
-            The vital rail
+            Where the name comes from
           </div>
           <p className="mt-2 max-w-sm text-[13.5px] leading-snug text-ink-soft">
-            A thin line runs down the left edge of every slide — continuity
-            of care, made literal. On the title, outcomes, and divider
-            slides, it breaks into a single heartbeat trace instead of
-            staying decoration.
+            A thin line runs down the left edge of every slide — continuity,
+            made literal. On the open and the close, it breaks into a single
+            heartbeat trace instead of staying decoration. That line is Thread.
           </p>
           <div
             className="relative mt-5 flex h-28 w-full items-center rounded-sm border px-10"
