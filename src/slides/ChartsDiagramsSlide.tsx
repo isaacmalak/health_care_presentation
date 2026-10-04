@@ -46,7 +46,7 @@ const USAGE = [
 const ADOPTION = [12, 24, 31, 45, 63, 78];
 const MONTHS = ["ينا", "فبر", "مار", "أبر", "ماي", "يون"];
 
-const CHART_BOX = "flex items-center" as const;
+const CHART_BOX = "flex items-center justify-center" as const;
 const CHART_HEIGHT = { height: 150 };
 
 export function ChartsDiagramsSlide() {

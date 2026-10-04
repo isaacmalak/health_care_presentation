@@ -41,7 +41,7 @@ export function SlideShell({
         className={
           bare
             ? "relative h-full"
-            : "relative flex h-full flex-col py-14 ps-32 pe-20"
+            : "relative flex h-full flex-col py-14 ps-32 pe-32"
         }
       >
         {!bare && eyebrow && (

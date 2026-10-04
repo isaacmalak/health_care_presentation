@@ -30,7 +30,7 @@ export function TypeSlide() {
           </div>
         </div>
 
-        <div className="fragment fade-up flex items-end gap-3">
+        <div className="fragment fade-up flex items-end justify-center gap-3">
           {SCALE.map((v) => (
             <div key={v} className="text-center">
               <div
