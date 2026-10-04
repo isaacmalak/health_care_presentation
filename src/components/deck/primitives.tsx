@@ -120,7 +120,7 @@ export function TextField({
     <div>
       <label className="font-utility block text-[12px] text-ink-soft">{label}</label>
       <div
-        className="mt-1.5 rounded-sm border px-3 py-2 text-[14px]"
+        className="mt-1.5 rounded-sm border px-3 py-2 text-[14px] text-right"
         dir="auto"
         style={{
           borderColor,
@@ -247,10 +247,7 @@ export function BarChart({ data }: { data: { label: string; value: number }[] })
       <div className="flex items-end gap-7" style={{ height: 112 }}>
         {data.map((d, i) => (
           <div key={d.label} className="flex h-full flex-1 flex-col items-center justify-end">
-            <div
-              className="font-utility mb-1.5 text-[13px] tabular-nums text-ink-soft"
-              dir="ltr"
-            >
+            <div className="font-utility mb-1.5 text-center text-[13px] tabular-nums text-ink-soft">
               {d.value}
             </div>
             <div
@@ -292,21 +289,24 @@ export function LineChart({
   const min = Math.min(...points);
   const range = max - min || 1;
   const stepX = width / (points.length - 1);
+  // x flows right-to-left: index 0 (oldest) sits at the right edge, matching
+  // reading order — not left-to-right like a Latin time axis.
   const coords = points.map((p, i) => [
-    i * stepX,
+    width - i * stepX,
     chartHeight - bottomPad - ((p - min) / range) * (chartHeight - topPad - bottomPad),
   ]);
   const line = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ");
-  const area = `${line} L${width},${chartHeight} L0,${chartHeight} Z`;
+  const area = `${line} L0,${chartHeight} L${width},${chartHeight} Z`;
   const [lastX, lastY] = coords[coords.length - 1];
 
   return (
-    <div dir="ltr">
+    <div>
       <svg
         width="100%"
         height={chartHeight}
         viewBox={`0 0 ${width} ${chartHeight}`}
         aria-hidden="true"
+        style={{ direction: "ltr" }}
       >
         <line
           x1={0}
@@ -340,9 +340,9 @@ export function LineChart({
           );
         })}
         <text
-          x={lastX - 10}
+          x={lastX + 10}
           y={lastY - 12}
-          textAnchor="end"
+          textAnchor="start"
           className="font-utility"
           style={{ fontSize: 14, fontWeight: 600, fill: "var(--color-ink)" }}
         >
@@ -378,7 +378,7 @@ export function ProgressRing({ value, label }: { value: number; label: string })
 
   return (
     <div className="flex items-center gap-7">
-      <div className="relative shrink-0" style={{ width: size, height: size }} dir="ltr">
+      <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <circle
             cx={size / 2}
@@ -401,9 +401,7 @@ export function ProgressRing({ value, label }: { value: number; label: string })
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="font-display text-[26px] leading-none font-medium" dir="ltr">
-            {value}%
-          </div>
+          <div className="font-display text-[26px] leading-none font-medium">{value}%</div>
         </div>
       </div>
       <div className="max-w-[140px] text-[13px] text-ink-soft">{label}</div>

@@ -20,7 +20,7 @@ export function ColorSlide() {
               style={{ background: hex, borderColor: "rgba(18,26,43,0.1)" }}
             />
             <div className="font-display mt-3 text-[18px]">{name}</div>
-            <div className="font-utility text-[13px] text-ink-soft" dir="ltr">
+            <div className="font-utility text-right text-[13px] text-ink-soft" dir="ltr">
               {hex}
             </div>
           </div>
