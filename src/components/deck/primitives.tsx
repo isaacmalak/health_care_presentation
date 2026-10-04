@@ -275,6 +275,51 @@ export function BarChart({ data }: { data: { label: string; value: number }[] })
   );
 }
 
+export function LineChart({ points, unit = "" }: { points: number[]; unit?: string }) {
+  const width = 280;
+  const height = 110;
+  const topPad = 26; // extra headroom so the end-value label never clips the viewBox
+  const bottomPad = 10;
+  const max = Math.max(...points);
+  const min = Math.min(...points);
+  const range = max - min || 1;
+  const stepX = width / (points.length - 1);
+  const coords = points.map((p, i) => [
+    i * stepX,
+    height - bottomPad - ((p - min) / range) * (height - topPad - bottomPad),
+  ]);
+  const line = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ");
+  const area = `${line} L${width},${height} L0,${height} Z`;
+  const [lastX, lastY] = coords[coords.length - 1];
+
+  return (
+    <div dir="ltr">
+      <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
+        <path d={area} fill="var(--color-vital)" opacity={0.08} />
+        <path
+          d={line}
+          fill="none"
+          stroke="var(--color-vital)"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx={lastX} cy={lastY} r={4.5} fill="var(--color-vital)" />
+        <text
+          x={lastX - 8}
+          y={lastY - 10}
+          textAnchor="end"
+          className="font-utility"
+          style={{ fontSize: 13, fill: "var(--color-ink-soft)" }}
+        >
+          {points[points.length - 1]}
+          {unit}
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 export function Card({ children }: { children: ReactNode }) {
   return (
     <div className="rounded-sm border p-4" style={{ borderColor: "var(--color-mist)" }}>

@@ -26,7 +26,7 @@ npm run lint
 3. **الطباعة (Typography)** — Amiri / IBM Plex Sans Arabic / Noto Kufi Arabic specimens, plus the spacing scale
 4. **المكوّنات — إجراءات وإدخال (Components — Actions & Inputs)** — button, checkbox, toggle, text field (default/error), select
 5. **المكوّنات — عرض وتنبيهات (Components — Display & Feedback)** — card, badge, tag, alert, avatar, stat, progress bar
-6. **المخططات والرسوم البيانية (Charts & Diagrams)** — a bar chart and a flow diagram
+6. **المخططات والرسوم البيانية (Charts & Diagrams)** — a bar chart, a line chart, and a flow diagram
 
 ## RTL notes
 
@@ -38,14 +38,14 @@ npm run lint
 - **Fonts actually support Arabic.** Fraunces/Inter/IBM Plex Mono (the original Latin stack) don't cover Arabic. The display/body/utility roles are now Amiri, IBM Plex Sans Arabic, and Noto Kufi Arabic respectively — chosen to preserve the same serif/humanist/geometric contrast the original pairing had.
 - **Numerals stay Western.** Hex codes, pixel values, and percentages use Latin digits (`0–9`) rather than Eastern Arabic-Indic numerals (`٠-٩`), matching common practice in Arabic tech/design contexts and avoiding a a-f hex digits mismatch.
 - **Codes and small charts stay LTR internally.** Hex values and the spacing-scale bar chart are wrapped in `dir="ltr"` so they read in their native order regardless of the surrounding RTL text.
-- **Chart colors are validated, not eyeballed.** `BarChart`'s categorical order (amber → teal → coral in `primitives.tsx`) was run through a colorblind-safety checker before use — the system's raw amber/coral pair fails adjacent-pair contrast for deuteranopia, so the fixed order keeps teal between them instead. Value labels stay in neutral ink; only the bar fill carries series identity.
+- **Chart colors are validated, not eyeballed.** `BarChart`'s categorical order (amber → teal → coral in `primitives.tsx`) was run through a colorblind-safety checker before use — the system's raw amber/coral pair fails adjacent-pair contrast for deuteranopia, so the fixed order keeps teal between them instead. Value labels stay in neutral ink; only the bar fill carries series identity. `LineChart` is a single series (magnitude over time), so it takes one hue (vital teal) rather than the categorical set — per the same rule, sequential data gets one hue, not a palette.
 
 ## Structure
 
 - `src/components/deck/RevealDeck.tsx` — initializes reveal.js on the client against a fixed 1280×720 canvas (reveal.js scales the whole deck to fit the viewport, so layout never reflows).
 - `src/components/deck/SlideShell.tsx` — shared slide chrome: the eyebrow label, footer, and the vital-rail signature. Content anchors directly under the eyebrow (not vertically centered) so every slide shares the same rhythm regardless of how much it holds.
 - `src/components/deck/VitalRail.tsx` — the deck's signature line, drawn in via CSS keyframes when a slide becomes current, respecting `prefers-reduced-motion`.
-- `src/components/deck/primitives.tsx` — the actual component set: `Button`, `TextField`, `Select`, `Checkbox`, `Toggle`, `Card`, `Badge`, `Tag`, `Alert`, `Avatar`, `Stat`, `ProgressBar`, `BarChart`, `Divider`.
+- `src/components/deck/primitives.tsx` — the actual component set: `Button`, `TextField`, `Select`, `Checkbox`, `Toggle`, `Card`, `Badge`, `Tag`, `Alert`, `Avatar`, `Stat`, `ProgressBar`, `BarChart`, `LineChart`, `Divider`.
 - `src/slides/` — one component per slide, assembled in order on `src/app/page.tsx`.
 
 Design tokens live in `src/app/globals.css` (`@theme` block) and `src/app/layout.tsx` (font loading via `next/font/google`: Amiri, IBM Plex Sans Arabic, Noto Kufi Arabic).
