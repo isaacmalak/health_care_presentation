@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import "reveal.js/reveal.css";
+
+/*
+  Design tokens — Harbor Health deck.
+  Palette: a cool clinical white, an ink navy for authority, a teal "vital"
+  accent standing in for health/vitality (not the generic medical blue), a
+  coral for human warmth/alerts, and a muted mist for structure. Named so the
+  intent travels with the value instead of a bare hex.
+*/
+@theme {
+  --color-canvas: #f5f7f4;
+  --color-ink: #121a2b;
+  --color-ink-soft: #3c4659;
+  --color-vital: #0f7a6c;
+  --color-vital-bright: #2bb8a0;
+  --color-vital-dim: #0f7a6c33;
+  --color-pulse: #d85a36;
+  --color-mist: #d7ddd8;
+  --color-mist-soft: #e7eae6;
+  --color-amber: #ad7a16;
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-utility: var(--font-utility);
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--color-ink);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+#__next,
+.reveal {
+  height: 100%;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Reveal.js structural overrides — no theme CSS is imported; every visual */
+/* decision below belongs to the Harbor Health design system.             */
+/* ---------------------------------------------------------------------- */
+
+.reveal {
+  --r-background-color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.reveal .slides section {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  text-align: left;
+  box-shadow: none;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .controls {
+  color: var(--color-mist-soft);
+}
+
+.reveal .controls button {
+  opacity: 0.85;
+}
+
+.reveal .progress {
+  color: var(--color-vital);
+  height: 3px;
+}
+
+.reveal .progress span {
+  transition: width 400ms ease;
+}
+
+.reveal ::selection {
+  background: var(--color-vital);
+  color: var(--color-canvas);
+}
