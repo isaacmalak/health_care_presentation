@@ -275,47 +275,138 @@ export function BarChart({ data }: { data: { label: string; value: number }[] })
   );
 }
 
-export function LineChart({ points, unit = "" }: { points: number[]; unit?: string }) {
+export function LineChart({
+  points,
+  labels,
+  unit = "",
+}: {
+  points: number[];
+  labels: string[];
+  unit?: string;
+}) {
   const width = 280;
-  const height = 110;
-  const topPad = 26; // extra headroom so the end-value label never clips the viewBox
-  const bottomPad = 10;
+  const chartHeight = 92;
+  const topPad = 24; // headroom so the end-value label never clips the viewBox
+  const bottomPad = 8;
   const max = Math.max(...points);
   const min = Math.min(...points);
   const range = max - min || 1;
   const stepX = width / (points.length - 1);
   const coords = points.map((p, i) => [
     i * stepX,
-    height - bottomPad - ((p - min) / range) * (height - topPad - bottomPad),
+    chartHeight - bottomPad - ((p - min) / range) * (chartHeight - topPad - bottomPad),
   ]);
   const line = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ");
-  const area = `${line} L${width},${height} L0,${height} Z`;
+  const area = `${line} L${width},${chartHeight} L0,${chartHeight} Z`;
   const [lastX, lastY] = coords[coords.length - 1];
 
   return (
     <div dir="ltr">
-      <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
-        <path d={area} fill="var(--color-vital)" opacity={0.08} />
+      <svg
+        width="100%"
+        height={chartHeight}
+        viewBox={`0 0 ${width} ${chartHeight}`}
+        aria-hidden="true"
+      >
+        <line
+          x1={0}
+          y1={chartHeight - bottomPad}
+          x2={width}
+          y2={chartHeight - bottomPad}
+          stroke="var(--color-mist)"
+          strokeWidth={1}
+        />
+        <path d={area} fill="var(--color-vital)" opacity={0.1} />
         <path
           d={line}
           fill="none"
           stroke="var(--color-vital)"
-          strokeWidth={2}
+          strokeWidth={2.5}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle cx={lastX} cy={lastY} r={4.5} fill="var(--color-vital)" />
+        {coords.map(([x, y], i) => {
+          const isLast = i === coords.length - 1;
+          return (
+            <circle
+              key={i}
+              cx={x}
+              cy={y}
+              r={isLast ? 5.5 : 4}
+              fill={isLast ? "var(--color-vital)" : "var(--color-canvas)"}
+              stroke="var(--color-vital)"
+              strokeWidth={2}
+            />
+          );
+        })}
         <text
-          x={lastX - 8}
-          y={lastY - 10}
+          x={lastX - 10}
+          y={lastY - 12}
           textAnchor="end"
           className="font-utility"
-          style={{ fontSize: 13, fill: "var(--color-ink-soft)" }}
+          style={{ fontSize: 14, fontWeight: 600, fill: "var(--color-ink)" }}
         >
           {points[points.length - 1]}
           {unit}
         </text>
       </svg>
+      <div className="mt-2.5 flex" style={{ width }}>
+        {labels.map((l) => (
+          <div key={l} className="font-utility flex-1 text-center text-[11px] text-ink-soft">
+            {l}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A circular meter: one ratio against its limit, not a multi-category pie.
+ * (A 3-slice donut of the system's brand hues fails CVD all-pairs — in a
+ * ring, every segment touches every other, including first↔last, and
+ * amber/coral don't clear that bar. A single-value ring with a same-hue
+ * track sidesteps the problem entirely and matches the dataviz skill's
+ * own guidance: prefer a Meter over a pie for "one ratio vs. a limit.")
+ */
+export function ProgressRing({ value, label }: { value: number; label: string }) {
+  const radius = 46;
+  const stroke = 14;
+  const size = (radius + stroke / 2) * 2;
+  const circumference = 2 * Math.PI * radius;
+  const dash = (value / 100) * circumference;
+
+  return (
+    <div className="flex items-center gap-7">
+      <div className="relative shrink-0" style={{ width: size, height: size }} dir="ltr">
+        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="none"
+            stroke="color-mix(in srgb, var(--color-vital) 16%, var(--color-canvas))"
+            strokeWidth={stroke}
+          />
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="none"
+            stroke="var(--color-vital)"
+            strokeWidth={stroke}
+            strokeLinecap="round"
+            strokeDasharray={`${dash} ${circumference - dash}`}
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <div className="font-display text-[26px] leading-none font-medium" dir="ltr">
+            {value}%
+          </div>
+        </div>
+      </div>
+      <div className="max-w-[140px] text-[13px] text-ink-soft">{label}</div>
     </div>
   );
 }
