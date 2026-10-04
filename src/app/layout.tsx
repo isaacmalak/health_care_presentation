@@ -1,35 +1,36 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Amiri, IBM_Plex_Sans_Arabic, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const amiri = Amiri({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  subsets: ["arabic"],
+  weight: ["400", "700"],
 });
 
-const inter = Inter({
+const plexSansArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-body",
-  subsets: ["latin"],
+  subsets: ["arabic"],
   weight: ["400", "500", "600"],
 });
 
-const plexMono = IBM_Plex_Mono({
+const kufi = Noto_Kufi_Arabic({
   variable: "--font-utility",
-  subsets: ["latin"],
+  subsets: ["arabic"],
   weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Thread — Design System",
-  description: "Thread: color, typography, and UI components.",
+  title: "نبض — نظام تصميم",
+  description: "نبض: الألوان، الطباعة، ومكوّنات الواجهة.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${plexMono.variable}`}
+      lang="ar"
+      dir="rtl"
+      className={`${amiri.variable} ${plexSansArabic.variable} ${kufi.variable}`}
     >
       <body>{children}</body>
     </html>

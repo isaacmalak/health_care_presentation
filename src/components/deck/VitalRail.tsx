@@ -23,7 +23,7 @@ export function VitalRail({
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute top-16 bottom-16 left-16 w-px"
+      className="pointer-events-none absolute top-16 bottom-16 start-16 w-px"
     >
       <div
         className="vital-rail-line h-full w-full origin-top"

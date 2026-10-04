@@ -40,7 +40,7 @@ body {
   height: 100%;
   background: var(--color-ink);
   color: var(--color-ink);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-body), "Segoe UI", Tahoma, sans-serif;
 }
 
 #__next,
@@ -55,18 +55,18 @@ body {
 
 .reveal {
   --r-background-color: var(--color-ink);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-body), "Segoe UI", Tahoma, sans-serif;
 }
 
 .reveal .slides section {
   background: var(--color-canvas);
   color: var(--color-ink);
-  text-align: left;
+  text-align: start;
   box-shadow: none;
 }
 
 .reveal .slides {
-  text-align: left;
+  text-align: start;
 }
 
 .reveal .controls {

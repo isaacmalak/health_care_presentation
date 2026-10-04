@@ -41,12 +41,12 @@ export function SlideShell({
         className={
           bare
             ? "relative h-full"
-            : "relative flex h-full flex-col py-14 pl-32 pr-20"
+            : "relative flex h-full flex-col py-14 ps-32 pe-20"
         }
       >
         {!bare && eyebrow && (
           <p
-            className="font-utility mb-10 text-[11px] uppercase tracking-[0.22em]"
+            className="font-utility mb-10 text-[13px]"
             style={{ color: dark ? "var(--color-vital-bright)" : "var(--color-vital)" }}
           >
             {eyebrow}
@@ -56,11 +56,11 @@ export function SlideShell({
         {bare && children}
         {!bare && (
           <footer
-            className="font-utility flex items-baseline justify-between pt-8 text-[10px] uppercase tracking-[0.18em]"
+            className="font-utility flex items-baseline justify-between pt-8 text-[11px]"
             style={{ opacity: 0.55 }}
           >
-            <span>Thread</span>
-            <span>
+            <span>نبض</span>
+            <span dir="ltr">
               {String(index).padStart(2, "0")} / {String(TOTAL_SLIDES).padStart(2, "0")}
             </span>
           </footer>

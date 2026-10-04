@@ -1,6 +1,6 @@
-# Thread — Design System
+# نبض (Nabd) — Design System
 
-A 5-slide visual reference, built with [Next.js](https://nextjs.org) and [reveal.js](https://revealjs.com): color, typography, and real rendered UI components for **Thread**, a healthcare design system — meant to hand off before a Figma file or development starts, not as a pitch deck. Minimal copy throughout; the components speak for themselves.
+A 5-slide visual reference, built with [Next.js](https://nextjs.org) and [reveal.js](https://revealjs.com): color, typography, and real rendered UI components for **نبض** ("Nabd" / "pulse"), a healthcare design system — in Arabic, right-to-left. Meant to hand off before a Figma file or development starts, not as a pitch deck. Minimal copy throughout; the components speak for themselves.
 
 reveal.js is driven directly via its vanilla client API inside a client component, rather than a third-party React wrapper.
 
@@ -21,11 +21,22 @@ npm run lint
 
 ## The deck
 
-1. **Cover** — wordmark only
-2. **Color** — the six tokens, swatch + hex
-3. **Typography** — Fraunces / Inter / IBM Plex Mono specimens, plus the spacing scale
-4. **Components — Actions & Inputs** — button, checkbox, toggle, text field (default/error), select
-5. **Components — Display & Feedback** — card, badge, tag, alert, avatar, stat, progress bar
+1. **الغلاف (Cover)** — wordmark only
+2. **الألوان (Color)** — the six tokens, swatch + hex
+3. **الطباعة (Typography)** — Amiri / IBM Plex Sans Arabic / Noto Kufi Arabic specimens, plus the spacing scale
+4. **المكوّنات — إجراءات وإدخال (Components — Actions & Inputs)** — button, checkbox, toggle, text field (default/error), select
+5. **المكوّنات — عرض وتنبيهات (Components — Display & Feedback)** — card, badge, tag, alert, avatar, stat, progress bar
+
+## RTL notes
+
+`<html dir="rtl" lang="ar">` drives the mirroring. A few things were handled deliberately rather than left to chance:
+
+- **Logical over physical properties.** `SlideShell` and `VitalRail` use Tailwind's logical utilities (`ps-*`/`pe-*`, `start-*`, `border-s-*`, `text-end`) instead of `pl-*`/`left-*`/`text-right`, so the rail, padding, and alert accent border all land on the correct side under `dir="rtl"` without per-element overrides. The one exception is `Toggle`'s knob, which sets `insetInlineStart` directly in a style prop since it's an animated positional value, not a static utility class.
+- **`dir="auto"` on mixed-content fields.** `TextField` and `Select` render values that are sometimes Arabic (a clinic name) and sometimes inherently Latin (an email address) — `dir="auto"` lets the browser's bidi algorithm pick the right direction per value instead of hardcoding one.
+- **No uppercase/heavy tracking on Arabic labels.** The original Latin deck used `uppercase` + wide `tracking` on mono labels for a "technical readout" feel. Arabic has no letter case, and wide tracking breaks the cursive joining between letters, so labels instead lean on Noto Kufi Arabic's inherently geometric character for that same effect.
+- **Fonts actually support Arabic.** Fraunces/Inter/IBM Plex Mono (the original Latin stack) don't cover Arabic. The display/body/utility roles are now Amiri, IBM Plex Sans Arabic, and Noto Kufi Arabic respectively — chosen to preserve the same serif/humanist/geometric contrast the original pairing had.
+- **Numerals stay Western.** Hex codes, pixel values, and percentages use Latin digits (`0–9`) rather than Eastern Arabic-Indic numerals (`٠-٩`), matching common practice in Arabic tech/design contexts and avoiding a a-f hex digits mismatch.
+- **Codes and small charts stay LTR internally.** Hex values and the spacing-scale bar chart are wrapped in `dir="ltr"` so they read in their native order regardless of the surrounding RTL text.
 
 ## Structure
 
@@ -35,6 +46,6 @@ npm run lint
 - `src/components/deck/primitives.tsx` — the actual component set: `Button`, `TextField`, `Select`, `Checkbox`, `Toggle`, `Card`, `Badge`, `Tag`, `Alert`, `Avatar`, `Stat`, `ProgressBar`, `Divider`.
 - `src/slides/` — one component per slide, assembled in order on `src/app/page.tsx`.
 
-Design tokens live in `src/app/globals.css` (`@theme` block) and `src/app/layout.tsx` (font loading via `next/font/google`: Fraunces, Inter, IBM Plex Mono).
+Design tokens live in `src/app/globals.css` (`@theme` block) and `src/app/layout.tsx` (font loading via `next/font/google`: Amiri, IBM Plex Sans Arabic, Noto Kufi Arabic).
 
-To add a slide: create a component in `src/slides/` using `SlideShell`, give it the next `index`, bump `TOTAL_SLIDES` in `SlideShell.tsx`, and import it into `src/app/page.tsx`. To add a component: build it in `primitives.tsx` against the existing tokens (don't introduce new colors — reuse the six).
+To add a slide: create a component in `src/slides/` using `SlideShell`, give it the next `index`, bump `TOTAL_SLIDES` in `SlideShell.tsx`, and import it into `src/app/page.tsx`. To add a component: build it in `primitives.tsx` against the existing tokens (don't introduce new colors — reuse the six), and use logical positioning so it still works under RTL.

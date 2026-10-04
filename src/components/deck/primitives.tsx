@@ -35,9 +35,7 @@ export function Stat({
       >
         {value}
       </div>
-      <div className="font-utility mt-2 text-[11px] uppercase tracking-[0.12em] text-ink-soft">
-        {label}
-      </div>
+      <div className="font-utility mt-2 text-[12px] text-ink-soft">{label}</div>
     </div>
   );
 }
@@ -47,7 +45,7 @@ export function Badge({ tone = "neutral", children }: { tone?: Tone; children: R
     tone === "neutral" ? "var(--color-mist-soft)" : `color-mix(in srgb, ${TONE_COLOR[tone]} 14%, white)`;
   return (
     <span
-      className="font-utility inline-flex items-center rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.1em]"
+      className="font-utility inline-flex items-center rounded-full px-3 py-1 text-[12px]"
       style={{ background: bg, color: tone === "neutral" ? "var(--color-ink-soft)" : TONE_COLOR[tone] }}
     >
       {children}
@@ -58,7 +56,7 @@ export function Badge({ tone = "neutral", children }: { tone?: Tone; children: R
 export function Tag({ children }: { children: ReactNode }) {
   return (
     <span
-      className="font-utility inline-flex items-center rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.12em]"
+      className="font-utility inline-flex items-center rounded-full border px-3 py-1 text-[12px]"
       style={{ borderColor: "var(--color-mist)", color: "var(--color-ink-soft)" }}
     >
       {children}
@@ -76,7 +74,7 @@ export function Button({
   if (variant === "disabled") {
     return (
       <span
-        className="font-utility inline-flex items-center gap-2 rounded-sm px-4 py-2 text-[13px] tracking-[0.04em]"
+        className="font-utility inline-flex items-center gap-2 rounded-sm px-4 py-2 text-[14px]"
         style={{ background: "var(--color-mist)", color: "var(--color-ink-soft)" }}
       >
         {children}
@@ -86,7 +84,7 @@ export function Button({
   if (variant === "ghost") {
     return (
       <span
-        className="font-utility inline-flex items-center gap-2 rounded-sm border px-4 py-2 text-[13px] tracking-[0.04em]"
+        className="font-utility inline-flex items-center gap-2 rounded-sm border px-4 py-2 text-[14px]"
         style={{ borderColor: "var(--color-ink)", color: "var(--color-ink)" }}
       >
         {children}
@@ -95,7 +93,7 @@ export function Button({
   }
   return (
     <span
-      className="font-utility inline-flex items-center gap-2 rounded-sm px-4 py-2 text-[13px] tracking-[0.04em]"
+      className="font-utility inline-flex items-center gap-2 rounded-sm px-4 py-2 text-[14px]"
       style={{ background: "var(--color-vital)", color: "var(--color-canvas)" }}
     >
       {children}
@@ -120,11 +118,10 @@ export function TextField({
     state === "error" ? "var(--color-pulse)" : state === "focus" ? "var(--color-vital)" : "var(--color-mist)";
   return (
     <div>
-      <label className="font-utility block text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-        {label}
-      </label>
+      <label className="font-utility block text-[12px] text-ink-soft">{label}</label>
       <div
         className="mt-1.5 rounded-sm border px-3 py-2 text-[14px]"
+        dir="auto"
         style={{
           borderColor,
           borderWidth: state === "focus" ? 2 : 1,
@@ -149,14 +146,12 @@ export function TextField({
 export function Select({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <label className="font-utility block text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-        {label}
-      </label>
+      <label className="font-utility block text-[12px] text-ink-soft">{label}</label>
       <div
         className="mt-1.5 flex items-center justify-between rounded-sm border px-3 py-2 text-[14px]"
         style={{ borderColor: "var(--color-mist)" }}
       >
-        <span>{value}</span>
+        <span dir="auto">{value}</span>
         <span className="text-ink-soft">⌄</span>
       </div>
     </div>
@@ -193,7 +188,7 @@ export function Toggle({ on = false }: { on?: boolean }) {
     >
       <div
         className="absolute top-[3px] h-[16px] w-[16px] rounded-full bg-white shadow-sm"
-        style={{ left: on ? 19 : 3 }}
+        style={{ insetInlineStart: on ? 19 : 3 }}
       />
     </div>
   );
@@ -224,7 +219,7 @@ export function Avatar({ initials, tone = "vital" }: { initials: string; tone?: 
 export function Alert({ tone, title, body }: { tone: Tone; title: string; body: string }) {
   return (
     <div
-      className="rounded-sm border-l-[3px] py-2.5 pl-4 pr-4"
+      className="rounded-sm border-s-[3px] px-4 py-2.5"
       style={{
         borderColor: TONE_COLOR[tone],
         background: `color-mix(in srgb, ${TONE_COLOR[tone]} 7%, var(--color-canvas))`,

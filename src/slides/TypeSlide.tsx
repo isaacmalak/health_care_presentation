@@ -4,39 +4,39 @@ const SCALE = [4, 8, 12, 16, 24, 32, 48, 64];
 
 export function TypeSlide() {
   return (
-    <SlideShell index={3} eyebrow="Typography" transition="slide">
+    <SlideShell index={3} eyebrow="الطباعة" transition="slide">
       <div className="flex flex-col gap-8">
         <div className="fragment fade-up flex items-end justify-between border-b pb-6" style={{ borderColor: "var(--color-mist)" }}>
-          <div className="font-display text-[88px] leading-none">Aa</div>
-          <div className="text-right">
-            <div className="font-display text-[15px]">Fraunces</div>
-            <div className="font-utility text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-              Display · 400 / 500 / 600
+          <div className="font-display text-[80px] leading-none">أب</div>
+          <div className="text-end">
+            <div className="font-display text-[16px]" dir="ltr">
+              Amiri
             </div>
+            <div className="font-utility text-[12px] text-ink-soft">العرض · 400 / 700</div>
           </div>
         </div>
 
         <div className="fragment fade-up flex items-end justify-between border-b pb-6" style={{ borderColor: "var(--color-mist)" }}>
-          <div className="font-body text-[56px] leading-none">Aa</div>
-          <div className="text-right">
-            <div className="font-body text-[15px]">Inter</div>
-            <div className="font-utility text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-              Body · 400 / 500 / 600
+          <div className="font-body text-[52px] leading-none">أب</div>
+          <div className="text-end">
+            <div className="font-body text-[16px]" dir="ltr">
+              IBM Plex Sans Arabic
             </div>
+            <div className="font-utility text-[12px] text-ink-soft">النص الأساسي · 400 / 500 / 600</div>
           </div>
         </div>
 
         <div className="fragment fade-up flex items-end justify-between border-b pb-6" style={{ borderColor: "var(--color-mist)" }}>
-          <div className="font-utility text-[40px] leading-none">Aa</div>
-          <div className="text-right">
-            <div className="font-utility text-[15px]">IBM Plex Mono</div>
-            <div className="font-utility text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-              Utility · 400 / 500
+          <div className="font-utility text-[40px] leading-none">أب</div>
+          <div className="text-end">
+            <div className="font-utility text-[16px]" dir="ltr">
+              Noto Kufi Arabic
             </div>
+            <div className="font-utility text-[12px] text-ink-soft">النصوص الوظيفية · 400 / 500</div>
           </div>
         </div>
 
-        <div className="fragment fade-up flex items-end gap-3">
+        <div className="fragment fade-up flex items-end gap-3" dir="ltr">
           {SCALE.map((v) => (
             <div key={v} className="text-center">
               <div
