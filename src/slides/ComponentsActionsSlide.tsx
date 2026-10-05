@@ -7,46 +7,46 @@ function Label({ children }: { children: string }) {
 
 export function ComponentsActionsSlide() {
   return (
-    <SlideShell index={4} eyebrow="المكوّنات — إجراءات وإدخال" transition="slide">
-      <div className="grid grid-cols-3 gap-x-12 gap-y-10">
-        <div className="fragment fade-up">
-          <Label>زر</Label>
+    <SlideShell index={15} eyebrow="Components — Actions & inputs" transition="slide">
+      <div className="grid grid-cols-3 gap-x-12 gap-y-10 portrait:grid-cols-2 portrait:gap-x-5 portrait:gap-y-7">
+        <div className="fragment fade-up portrait:col-span-2">
+          <Label>Button</Label>
           <div className="flex flex-wrap gap-2.5">
-            <Button>أساسي</Button>
-            <Button variant="ghost">ثانوي</Button>
-            <Button variant="disabled">معطّل</Button>
+            <Button>Primary</Button>
+            <Button variant="ghost">Secondary</Button>
+            <Button variant="disabled">Disabled</Button>
           </div>
         </div>
 
         <div className="fragment fade-up">
-          <Label>خانة اختيار</Label>
+          <Label>Checkbox</Label>
           <div className="flex flex-col gap-3">
-            <Checkbox label="غير محدد" />
-            <Checkbox label="محدد" checked />
+            <Checkbox label="Unchecked" />
+            <Checkbox label="Checked" checked />
           </div>
         </div>
 
         <div className="fragment fade-up">
-          <Label>مفتاح تبديل</Label>
+          <Label>Toggle</Label>
           <div className="flex items-center gap-6">
             <Toggle />
             <Toggle on />
           </div>
         </div>
 
-        <div className="fragment fade-up">
-          <Label>حقل نصي</Label>
-          <TextField label="البريد الإلكتروني" placeholder="you@example.com" />
+        <div className="fragment fade-up portrait:col-span-2">
+          <Label>Text field</Label>
+          <TextField label="Email" placeholder="you@example.com" />
         </div>
 
-        <div className="fragment fade-up">
-          <Label>حقل نصي · خطأ</Label>
-          <TextField label="كلمة المرور" value="••••" state="error" helper="8 أحرف على الأقل" />
+        <div className="fragment fade-up portrait:col-span-2">
+          <Label>Text field · Error</Label>
+          <TextField label="Password" value="••••" state="error" helper="At least 8 characters" />
         </div>
 
-        <div className="fragment fade-up">
-          <Label>قائمة منسدلة</Label>
-          <Select label="العيادة" value="الواحة — الفرع الرئيسي" />
+        <div className="fragment fade-up portrait:col-span-2">
+          <Label>Select</Label>
+          <Select label="Clinic" value="Al Waha — Main branch" />
         </div>
       </div>
     </SlideShell>

@@ -2,13 +2,13 @@ import { SlideShell } from "@/components/deck/SlideShell";
 import { BarChart, LineChart, ProgressRing } from "@/components/deck/primitives";
 
 function Label({ children }: { children: string }) {
-  return <div className="font-utility mb-4 text-[12px] text-vital">{children}</div>;
+  return <div className="font-utility mb-4 text-[12px] text-vital portrait:mb-2">{children}</div>;
 }
 
 function FlowNode({ children }: { children: string }) {
   return (
     <div
-      className="rounded-sm border px-4 py-3 text-center text-[14px]"
+      className="rounded-sm border px-4 py-3 text-center text-[14px] portrait:px-3 portrait:py-2 portrait:text-[13px]"
       style={{ borderColor: "var(--color-mist)" }}
     >
       {children}
@@ -19,7 +19,7 @@ function FlowNode({ children }: { children: string }) {
 function FlowArrow() {
   return (
     <svg
-      className="mx-1 shrink-0"
+      className="mx-1 shrink-0 portrait:mx-0 portrait:w-7"
       width="40"
       height="16"
       viewBox="0 0 40 16"
@@ -27,7 +27,7 @@ function FlowArrow() {
       aria-hidden="true"
     >
       <path
-        d="M39 8H2M2 8L10 2M2 8L10 14"
+        d="M1 8H38M38 8L30 2M38 8L30 14"
         stroke="var(--color-ink-soft)"
         strokeWidth="1.6"
         strokeLinecap="round"
@@ -38,50 +38,49 @@ function FlowArrow() {
 }
 
 const USAGE = [
-  { label: "الأزرار", value: 128 },
-  { label: "البطاقات", value: 64 },
-  { label: "التنبيهات", value: 40 },
+  { label: "Buttons", value: 128 },
+  { label: "Cards", value: 64 },
+  { label: "Alerts", value: 40 },
 ];
 
 const ADOPTION = [12, 24, 31, 45, 63, 78];
-const MONTHS = ["ينا", "فبر", "مار", "أبر", "ماي", "يون"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
 
-const CHART_BOX = "flex items-center justify-center" as const;
-const CHART_HEIGHT = { height: 150 };
+const CHART_BOX = "flex items-center justify-center h-[150px] portrait:h-[118px]";
 
 export function ChartsDiagramsSlide() {
   return (
-    <SlideShell index={6} eyebrow="المخططات والرسوم البيانية" transition="slide">
-      <div className="grid grid-cols-2 gap-x-16 gap-y-9">
+    <SlideShell index={17} eyebrow="Charts & diagrams" transition="slide">
+      <div className="grid grid-cols-2 gap-x-16 gap-y-9 portrait:grid-cols-1 portrait:gap-y-5">
         <div className="fragment fade-up">
-          <Label>رسم بياني شريطي — استخدام المكوّنات</Label>
-          <div className={CHART_BOX} style={CHART_HEIGHT}>
+          <Label>Bar chart — component usage</Label>
+          <div className={CHART_BOX}>
             <BarChart data={USAGE} />
           </div>
         </div>
 
         <div className="fragment fade-up">
-          <Label>مؤشر دائري — تطابق الشاشات مع النظام</Label>
-          <div className={CHART_BOX} style={CHART_HEIGHT}>
-            <ProgressRing value={64} label="من شاشات المنتج تستخدم مكوّنات نبض مباشرة" />
+          <Label>Progress ring — screens on the system</Label>
+          <div className={CHART_BOX}>
+            <ProgressRing value={64} label="of product screens use design-system components directly" />
           </div>
         </div>
 
         <div className="fragment fade-up">
-          <Label>رسم بياني خطي — تبنّي النظام عبر الأشهر</Label>
-          <div className={CHART_BOX} style={CHART_HEIGHT}>
+          <Label>Line chart — adoption by month</Label>
+          <div className={CHART_BOX}>
             <LineChart points={ADOPTION} labels={MONTHS} unit="%" />
           </div>
         </div>
 
         <div className="fragment fade-up">
-          <Label>مخطط تدفق — بنية النظام</Label>
-          <div className={CHART_BOX} style={CHART_HEIGHT}>
-            <FlowNode>الرموز</FlowNode>
+          <Label>Flow diagram — system structure</Label>
+          <div className={CHART_BOX}>
+            <FlowNode>Tokens</FlowNode>
             <FlowArrow />
-            <FlowNode>المكوّنات</FlowNode>
+            <FlowNode>Components</FlowNode>
             <FlowArrow />
-            <FlowNode>الشاشات</FlowNode>
+            <FlowNode>Screens</FlowNode>
           </div>
         </div>
       </div>

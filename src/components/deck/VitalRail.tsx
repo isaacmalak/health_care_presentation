@@ -23,7 +23,7 @@ export function VitalRail({
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute top-16 bottom-16 start-16 w-px"
+      className="pointer-events-none absolute top-16 bottom-16 start-16 w-px portrait:top-10 portrait:bottom-10 portrait:start-6"
     >
       <div
         className="vital-rail-line h-full w-full origin-top"
@@ -31,7 +31,7 @@ export function VitalRail({
       />
       {pulse && (
         <svg
-          className="vital-rail-pulse absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible"
+          className="vital-rail-pulse absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible portrait:top-[82%]"
           width="132"
           height="56"
           viewBox="0 0 132 56"

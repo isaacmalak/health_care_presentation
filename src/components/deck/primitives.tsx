@@ -120,8 +120,7 @@ export function TextField({
     <div>
       <label className="font-utility block text-[12px] text-ink-soft">{label}</label>
       <div
-        className="mt-1.5 rounded-sm border px-3 py-2 text-[14px] text-right"
-        dir="auto"
+        className="mt-1.5 rounded-sm border px-3 py-2 text-[14px]"
         style={{
           borderColor,
           borderWidth: state === "focus" ? 2 : 1,
@@ -151,7 +150,7 @@ export function Select({ label, value }: { label: string; value: string }) {
         className="mt-1.5 flex items-center justify-between rounded-sm border px-3 py-2 text-[14px]"
         style={{ borderColor: "var(--color-mist)" }}
       >
-        <span dir="auto">{value}</span>
+        <span>{value}</span>
         <span className="text-ink-soft">⌄</span>
       </div>
     </div>
@@ -289,14 +288,13 @@ export function LineChart({
   const min = Math.min(...points);
   const range = max - min || 1;
   const stepX = width / (points.length - 1);
-  // x flows right-to-left: index 0 (oldest) sits at the right edge, matching
-  // reading order — not left-to-right like a Latin time axis.
+  // Time flows left-to-right: index 0 (oldest) sits at the left edge.
   const coords = points.map((p, i) => [
-    width - i * stepX,
+    i * stepX,
     chartHeight - bottomPad - ((p - min) / range) * (chartHeight - topPad - bottomPad),
   ]);
   const line = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ");
-  const area = `${line} L0,${chartHeight} L${width},${chartHeight} Z`;
+  const area = `${line} L${width},${chartHeight} L0,${chartHeight} Z`;
   const [lastX, lastY] = coords[coords.length - 1];
 
   return (
@@ -306,7 +304,7 @@ export function LineChart({
         height={chartHeight}
         viewBox={`0 0 ${width} ${chartHeight}`}
         aria-hidden="true"
-        style={{ direction: "ltr" }}
+        className="overflow-visible"
       >
         <line
           x1={0}
@@ -340,9 +338,9 @@ export function LineChart({
           );
         })}
         <text
-          x={lastX + 10}
+          x={lastX - 10}
           y={lastY - 12}
-          textAnchor="start"
+          textAnchor="end"
           className="font-utility"
           style={{ fontSize: 14, fontWeight: 600, fill: "var(--color-ink)" }}
         >

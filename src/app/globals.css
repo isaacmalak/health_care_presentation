@@ -2,7 +2,7 @@
 @import "reveal.js/reveal.css";
 
 /*
-  Design tokens — Harbor Health deck.
+  Design tokens — Unified Medical Management System deck.
   Palette: a cool clinical white, an ink navy for authority, a teal "vital"
   accent standing in for health/vitality (not the generic medical blue), a
   coral for human warmth/alerts, and a muted mist for structure. Named so the
@@ -40,7 +40,7 @@ body {
   height: 100%;
   background: var(--color-ink);
   color: var(--color-ink);
-  font-family: var(--font-body), "Segoe UI", Tahoma, sans-serif;
+  font-family: var(--font-body), "Segoe UI", system-ui, sans-serif;
 }
 
 #__next,
@@ -50,16 +50,22 @@ body {
 
 /* ---------------------------------------------------------------------- */
 /* Reveal.js structural overrides — no theme CSS is imported; every visual */
-/* decision below belongs to the Harbor Health design system.             */
+/* decision below belongs to the deck's own design system.                */
 /* ---------------------------------------------------------------------- */
 
 .reveal {
   --r-background-color: var(--color-ink);
-  font-family: var(--font-body), "Segoe UI", Tahoma, sans-serif;
+  font-family: var(--font-body), "Segoe UI", system-ui, sans-serif;
 }
 
+/*
+  Slides carry no background of their own: each sets data-background-color
+  and reveal.js paints it on its full-viewport background layer. The canvas
+  (1280×720, or the portrait canvas on phones) keeps its size; only the
+  color bleeds to the screen edges.
+*/
 .reveal .slides section {
-  background: var(--color-canvas);
+  background: transparent;
   color: var(--color-ink);
   text-align: start;
   box-shadow: none;
@@ -70,6 +76,10 @@ body {
 }
 
 .reveal .controls {
+  color: var(--color-ink);
+}
+
+.reveal.has-dark-background .controls {
   color: var(--color-mist-soft);
 }
 
